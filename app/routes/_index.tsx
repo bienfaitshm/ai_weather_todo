@@ -34,11 +34,11 @@ export default function Index() {
         <div className="space-y-6">
           <HomeDateTimer />
           <div className="flex justify-center gap-6">
-            <Button variant="outline" className="flex items-center gap-2 rounded-full">
+            <Button className="flex items-center gap-2 rounded-full">
               <HomeIcon />
               <span>Home</span>
             </Button>
-            <Button variant="outline" className="flex items-center gap-2 rounded-full">
+            <Button className="flex items-center gap-2 rounded-full">
               <ListTodoIcon />
               <span>Tasks</span>
             </Button>
