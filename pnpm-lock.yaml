@@ -14,21 +14,12 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.0.1
         version: 5.0.1(react-hook-form@7.55.0(react@18.3.1))
-      '@netlify/edge-functions':
-        specifier: ^2.3.1
-        version: 2.11.1
       '@netlify/functions':
         specifier: ^2.6.0
         version: 2.8.2
       '@netlify/remix-adapter':
         specifier: ^2.3.1
         version: 2.6.1(typescript@5.8.2)(vite@6.2.4(@types/node@22.13.17)(jiti@1.21.7)(yaml@2.7.1))
-      '@netlify/remix-edge-adapter':
-        specifier: ^3.2.1
-        version: 3.4.3(@remix-run/react@2.16.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2))(@remix-run/serve@2.16.4(typescript@5.8.2))(@remix-run/server-runtime@2.16.4(typescript@5.8.2))(@types/node@22.13.17)(jiti@1.21.7)(typescript@5.8.2)(vite@6.2.4(@types/node@22.13.17)(jiti@1.21.7)(yaml@2.7.1))(yaml@2.7.1)
-      '@netlify/remix-runtime':
-        specifier: ^2.2.0
-        version: 2.3.1(@remix-run/server-runtime@2.16.4(typescript@5.8.2))
       '@npmcli/package-json':
         specifier: ^6.1.1
         version: 6.1.1
@@ -792,9 +783,6 @@ packages:
   '@napi-rs/wasm-runtime@0.2.8':
     resolution: {integrity: sha512-OBlgKdX7gin7OIq4fadsjpg+cp2ZphvAIKucHsNfTdJiqdOmOEwQd/bHi0VwNrcw5xpBJyUw6cK/QilCqy1BSg==}
 
-  '@netlify/edge-functions@2.11.1':
-    resolution: {integrity: sha512-pyQOTZ8a+ge5lZlE+H/UAHyuqQqtL5gE0pXrHT9mOykr3YQqnkB2hZMtx12odatZ87gHg4EA+UPyMZUbLfnXvw==}
-
   '@netlify/functions@2.8.2':
     resolution: {integrity: sha512-DeoAQh8LuNPvBE4qsKlezjKj0PyXDryOFJfJKo3Z1qZLKzQ21sT314KQKPVjfvw6knqijj+IO+0kHXy/TJiqNA==}
     engines: {node: '>=14.0.0'}
@@ -811,21 +799,6 @@ packages:
     peerDependenciesMeta:
       vite:
         optional: true
-
-  '@netlify/remix-edge-adapter@3.4.3':
-    resolution: {integrity: sha512-tZJOMdIzjECuZXwI2MjCoSwTUdR+JfVgAJ0N/kjcYvNfJAAox859HIwRJxIvIL/oSs7Oq55XC22L5pBy0252Zw==}
-    engines: {node: '>=16.0.0'}
-    peerDependencies:
-      vite: '>=5.0.0'
-    peerDependenciesMeta:
-      vite:
-        optional: true
-
-  '@netlify/remix-runtime@2.3.1':
-    resolution: {integrity: sha512-5gVnFavbyzUTW8U8+XeLQjh/NhktiLpauaxH0Oh6r66WOXrDYFi8/QWxdcOhb6WRomYidnxTeNrxQDUp59Vplg==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@remix-run/server-runtime': ^2.9.2
 
   '@netlify/serverless-functions-api@1.26.1':
     resolution: {integrity: sha512-q3L9i3HoNfz0SGpTIS4zTcKBbRkxzCRpd169eyiTuk3IwcPC3/85mzLHranlKo2b+HYT0gu37YxGB45aD8A3Tw==}
@@ -4697,8 +4670,6 @@ snapshots:
       '@tybys/wasm-util': 0.9.0
     optional: true
 
-  '@netlify/edge-functions@2.11.1': {}
-
   '@netlify/functions@2.8.2':
     dependencies:
       '@netlify/serverless-functions-api': 1.26.1
@@ -4713,42 +4684,6 @@ snapshots:
       vite: 6.2.4(@types/node@22.13.17)(jiti@1.21.7)(yaml@2.7.1)
     transitivePeerDependencies:
       - typescript
-
-  '@netlify/remix-edge-adapter@3.4.3(@remix-run/react@2.16.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2))(@remix-run/serve@2.16.4(typescript@5.8.2))(@remix-run/server-runtime@2.16.4(typescript@5.8.2))(@types/node@22.13.17)(jiti@1.21.7)(typescript@5.8.2)(vite@6.2.4(@types/node@22.13.17)(jiti@1.21.7)(yaml@2.7.1))(yaml@2.7.1)':
-    dependencies:
-      '@netlify/remix-runtime': 2.3.1(@remix-run/server-runtime@2.16.4(typescript@5.8.2))
-      '@remix-run/dev': 2.16.4(@remix-run/react@2.16.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.2))(@remix-run/serve@2.16.4(typescript@5.8.2))(@types/node@22.13.17)(jiti@1.21.7)(typescript@5.8.2)(vite@6.2.4(@types/node@22.13.17)(jiti@1.21.7)(yaml@2.7.1))(yaml@2.7.1)
-      '@remix-run/node': 2.16.4(typescript@5.8.2)
-      isbot: 5.1.25
-    optionalDependencies:
-      vite: 6.2.4(@types/node@22.13.17)(jiti@1.21.7)(yaml@2.7.1)
-    transitivePeerDependencies:
-      - '@remix-run/react'
-      - '@remix-run/serve'
-      - '@remix-run/server-runtime'
-      - '@types/node'
-      - babel-plugin-macros
-      - bluebird
-      - bufferutil
-      - jiti
-      - less
-      - lightningcss
-      - sass
-      - sass-embedded
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-      - ts-node
-      - tsx
-      - typescript
-      - utf-8-validate
-      - wrangler
-      - yaml
-
-  '@netlify/remix-runtime@2.3.1(@remix-run/server-runtime@2.16.4(typescript@5.8.2))':
-    dependencies:
-      '@remix-run/server-runtime': 2.16.4(typescript@5.8.2)
 
   '@netlify/serverless-functions-api@1.26.1':
     dependencies:
