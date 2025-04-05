@@ -7,7 +7,7 @@ import { json, type LoaderFunctionArgs, type MetaFunction } from "@remix-run/nod
 import { WeatherCard } from "@/components/weather-card";
 import { getClientIPAddress } from "remix-utils/get-client-ip-address";
 import { getLocation } from "@/lib/location";
-import { useLoaderData, type ClientLoaderFunctionArgs } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
