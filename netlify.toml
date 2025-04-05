@@ -1,7 +1,7 @@
 [build]
 command = "pnpm build"
 functions = "netlify/functions"
-publish = "apps/ai_weather_todo/build/client"
+publish = "/apps/ai_weather_todo/build/client"
 
 [fonctions]
 directory = "/apps/ai_weather_todo/.netlify/fonctions-internal"
