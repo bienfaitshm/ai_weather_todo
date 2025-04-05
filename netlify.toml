@@ -3,8 +3,8 @@ command = "pnpm build"
 functions = "netlify/functions"
 publish = "build/client"
 
-[fonctions]
-directory = "/apps/ai_weather_todo/.netlify/fonctions-internal"
+[functions]  # Correction de "fonctions" en "functions"
+directory = "/apps/ai_weather_todo/.netlify/functions-internal"  # Correction de "fonctions-internal" en "functions-internal"
 
 [dev]
 command = "pnpm dev"
@@ -12,10 +12,10 @@ port = 3000
 
 [[redirects]]
 from = "/*"
-to = ".netlify/functions/server"
+to = "/.netlify/functions/server"  # Ajout du "/" manquant avant ".netlify"
 status = 200
 
 [[headers]]
 for = "/build/*"
 [headers.values]
-"Cache-Control" = "public, max-age=31536000, s-maxage=31536000"
+Cache-Control = "public, max-age=31536000, s-maxage=31536000"  # Suppression des guillemets autour de "Cache-Control"
