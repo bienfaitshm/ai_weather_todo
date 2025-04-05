@@ -1,16 +1,10 @@
 import { HomeDateTimer } from "@/components/home-time";
 import { Button } from "@/components/ui/button";
 import { CloudMoon, HomeIcon, ListTodoIcon } from "lucide-react"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+
 
 import type { MetaFunction } from "@remix-run/node";
+import { WeatherCard } from "@/components/weather-card";
 
 export const meta: MetaFunction = () => {
   return [
@@ -36,25 +30,15 @@ export default function Index() {
             </Button>
           </div>
         </div>
-        <Card className="px-5">
-          <CardHeader>
-            <CardTitle>Card Title</CardTitle>
-            <CardDescription>Card Description</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-end gap-10">
-              <div>
-                <h1 className="text-4xl font-bold">35</h1>
-                <p className="text-xs">Mosly clear</p>
-                <p className="text-xs">Chance of Rain 25%</p>
-                <p className="text-xs">Humidity 70%</p>
-              </div>
-              <CloudMoon className="size-24" />
-            </div>
-          </CardContent>
-
-        </Card>
-
+        <WeatherCard
+          title="Card Title"
+          description="Card Description"
+          temperature={35}
+          weatherCondition="Mostly clear"
+          rainChance="Chance of Rain 25%"
+          humidity="Humidity 70%"
+          icon={<CloudMoon className="size-24" />}
+        />
       </div>
     </div>
   );
