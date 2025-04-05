@@ -1,6 +1,0 @@
-
-
-[[redirects]]
-from = "/*"
-to = "/.netlify/functions/server"
-status = 200
