@@ -25,7 +25,7 @@ export async function loader({
 
 
 export default function Page() {
-    const data = useLoaderData<ClientLoaderFunctionArgs>();
+    const data = useLoaderData<typeof loader>();
     return (
         <div className="flex h-screen items-center justify-center">
             <div className="text-center">

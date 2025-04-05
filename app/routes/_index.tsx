@@ -3,8 +3,11 @@ import { Button } from "@/components/ui/button";
 import { CloudMoon, HomeIcon, ListTodoIcon } from "lucide-react"
 
 
-import type { MetaFunction } from "@remix-run/node";
+import { json, type LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
 import { WeatherCard } from "@/components/weather-card";
+import { getClientIPAddress } from "remix-utils/get-client-ip-address";
+import { getLocation } from "@/lib/location";
+import { useLoaderData, type ClientLoaderFunctionArgs } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -13,31 +16,41 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+
+export async function loader({
+  request,
+}: LoaderFunctionArgs) {
+  const clientIp = getClientIPAddress(request);
+  const location = getLocation(clientIp || "41.243.2.163") // for testing purposes, use localhost ip;
+  //   const data = JSON.stringify()
+  return json({ clientIp, location });
+}
+
 export default function Index() {
+  const { location } = useLoaderData<typeof loader>();
   return (
     <div className="flex container h-screen items-center mx-auto max-w-screen-md">
-      <div className="flex items-center justify-between w-full">
-        <div className="space-y-5">
+      <div className="flex w-full items-center justify-between">
+        <div className="space-y-6">
           <HomeDateTimer />
-          <div className="w-full flex flex-row justify-center gap-5">
-            <Button className="rounded-full">
+          <div className="flex justify-center gap-6">
+            <Button variant="outline" className="flex items-center gap-2 rounded-full">
               <HomeIcon />
               <span>Home</span>
             </Button>
-            <Button className="rounded-full">
+            <Button variant="outline" className="flex items-center gap-2 rounded-full">
               <ListTodoIcon />
-              <span>Taches</span>
+              <span>Tasks</span>
             </Button>
           </div>
         </div>
         <WeatherCard
-          title="Card Title"
-          // description="Card Description"
+          title={`${location?.city} - ${location?.country}` || "Unknown Region"}
           temperature={35}
-          weatherCondition="Mostly clear"
-          rainChance="Chance of Rain 25%"
-          humidity="Humidity 70%"
-          icon={<CloudMoon className="size-24" />}
+          weatherCondition="Mostly Clear"
+          rainChance="25% Chance of Rain"
+          humidity="70% Humidity"
+          icon={<CloudMoon className="size-28" />}
         />
       </div>
     </div>
