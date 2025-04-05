@@ -17,7 +17,7 @@ export async function loader({
     request,
 }: LoaderFunctionArgs) {
     const clientIp = getClientIPAddress(request);
-    const location = getLocation(clientIp || "::1") // for testing purposes, use localhost ip;
+    const location = getLocation(clientIp || "41.243.2.163") // for testing purposes, use localhost ip;
     //   const data = JSON.stringify()
     return json({ clientIp, location });
 }
