@@ -4,6 +4,7 @@ import { useLoaderData, type ClientLoaderFunctionArgs } from "@remix-run/react";
 import { getClientIPAddress } from "remix-utils/get-client-ip-address"
 import type { MetaFunction } from "@remix-run/node";
 import { Button } from "@/components/ui/button";
+import { getLocation } from "@/lib/location";
 
 export const meta: MetaFunction = () => {
     return [
@@ -16,8 +17,9 @@ export async function loader({
     request,
 }: LoaderFunctionArgs) {
     const clientIp = getClientIPAddress(request);
+    const location = getLocation(clientIp || "::1") // for testing purposes, use localhost ip;
     //   const data = JSON.stringify()
-    return json({ clientIp });
+    return json({ clientIp, location });
 }
 
 
