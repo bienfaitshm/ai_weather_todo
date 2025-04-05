@@ -1,8 +1,9 @@
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData, type ClientLoaderFunctionArgs } from "@remix-run/react";
+import { getClientIPAddress } from "remix-utils/get-client-ip-address"
 import type { MetaFunction } from "@remix-run/node";
-import { Button } from "~/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 export const meta: MetaFunction = () => {
     return [
@@ -14,8 +15,9 @@ export const meta: MetaFunction = () => {
 export async function loader({
     request,
 }: LoaderFunctionArgs) {
+    const clientIp = getClientIPAddress(request);
     //   const data = JSON.stringify()
-    return json(request.headers);
+    return json({ clientIp });
 }
 
 
