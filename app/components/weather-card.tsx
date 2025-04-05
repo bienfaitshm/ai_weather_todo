@@ -9,7 +9,7 @@ import {
 
 export interface WeatherCardProps {
     title: string;
-    description: string;
+    description?: string;
     temperature: number;
     weatherCondition: string;
     rainChance: string;

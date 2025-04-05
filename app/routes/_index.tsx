@@ -32,7 +32,7 @@ export default function Index() {
         </div>
         <WeatherCard
           title="Card Title"
-          description="Card Description"
+          // description="Card Description"
           temperature={35}
           weatherCondition="Mostly clear"
           rainChance="Chance of Rain 25%"
