@@ -3,6 +3,9 @@ command = "pnpm build"
 functions = "netlify/functions"
 publish = "apps/remix/public"
 
+[fonctions]
+directory = « /apps/ai_weather_todo/.netlify/fonctions-internal »
+
 [dev]
 command = "remix watch"
 port = 3000
