@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { TaskSchema, Task } from "@/lib/schemas"
+import { Form, useLoaderData } from "@remix-run/react";
 
 const DEFAULT_VALUES: Task = {
     title: "",
@@ -31,10 +32,10 @@ export const TaskForm: React.FC<TaskFormProps> = ({ defaultValues, onSubmit }) =
     }
 
     return (
-        <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <Form id="task-form" method="post">
             <input {...form.register("title")} placeholder="Username" />
             <button type="submit">Submit</button>
-        </form>
+        </Form>
     )
 }
 
