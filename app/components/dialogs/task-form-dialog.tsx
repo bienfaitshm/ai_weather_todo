@@ -30,11 +30,11 @@ export const TaskFormDialog: React.FC<TaskFormDialogProps> = ({ }) => {
                     </DialogDescription>
                 </DialogHeader>
                 <TaskForm />
+                <DialogFooter>
+                    <Button variant="outline">Cancel</Button>
+                    <Button type="submit">Submit</Button>
+                </DialogFooter>
             </DialogContent>
-            <DialogFooter>
-                <Button variant="outline">Cancel</Button>
-                <Button type="submit">Submit</Button>
-            </DialogFooter>
         </Dialog>
     )
 }
