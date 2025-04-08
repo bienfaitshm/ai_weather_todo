@@ -33,7 +33,7 @@ export default function Index() {
     <div className="flex container h-screen items-center mx-auto max-w-screen-md">
       <div className="flex w-full items-center justify-between">
         <div className="space-y-6">
-          <ModeToggle />
+
           <HomeDateTimer />
           <div className="flex justify-center gap-6">
             <Button className="flex items-center gap-2 rounded-full">
@@ -44,6 +44,7 @@ export default function Index() {
               <ListTodoIcon />
               <span>Tasks</span>
             </Button>
+            <ModeToggle />
           </div>
         </div>
         <WeatherCard
