@@ -10,12 +10,7 @@ import {
 import { ListTodo } from "lucide-react"
 import { TypographyLarge, TypographyP } from "./ui/typography"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-    Tooltip,
-    TooltipContent,
-    TooltipProvider,
-    TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { Task } from "./task"
 
 export function TaskSheet() {
     return (
@@ -34,28 +29,30 @@ export function TaskSheet() {
                     </SheetDescription>
                 </SheetHeader>
                 <div>
-                    <div className="">
-                        Taches
-                        <div className="bg-purple-500/20 px-4 py-2 rounded-md">
-                            <TypographyLarge className="text-sm">Boire un verre</TypographyLarge>
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild><TypographyP className="text-muted-foreground text-xs truncate">
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                        Voluptatum illum velit sint mollitia deleniti quis optio fuga minus hic,
-                                        at vero inventore magni? Maiores sint assumenda obcaecati maxime reiciendis exercitationem.
-                                    </TypographyP></TooltipTrigger>
-                                    <TooltipContent>
-                                        <TypographyP className="text-xs"> Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                            Voluptatum illum velit sint mollitia deleniti quis optio fuga minus hic,
-                                            at vero inventore magni? Maiores sint assumenda obcaecati maxime reiciendis exercitationem.</TypographyP>
-                                    </TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-
-
-                        </div>
-                    </div>
+                    <Tabs defaultValue="taches" className="w-full">
+                        <TabsList className="grid w-full grid-cols-2">
+                            <TabsTrigger value="taches">Taches</TabsTrigger>
+                            <TabsTrigger value="ai-assistant">Ai Assistant</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="taches" className="space-y-4">
+                            <div className="flex flex-col gap-2">
+                                <TypographyLarge className="text-sm">Taches</TypographyLarge>
+                                <div className="space-y-2">
+                                    <Task />
+                                    <Task />
+                                    <Task />
+                                </div>
+                            </div>
+                        </TabsContent>
+                        <TabsContent value="ai-assistant" className="space-y-4">
+                            <div className="flex flex-col gap-2">
+                                <TypographyLarge className="text-sm">Ai Assistant</TypographyLarge>
+                                <div className="bg-purple-500/20 px-4 py-2 rounded-md">
+                                    <TypographyP className="text-sm">Boire un verre</TypographyP>
+                                </div>
+                            </div>
+                        </TabsContent>
+                    </Tabs>
                 </div>
 
             </SheetContent>
