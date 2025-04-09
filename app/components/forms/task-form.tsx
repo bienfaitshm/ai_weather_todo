@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { TaskSchema, Task } from "@/lib/schemas"
 import { Form as RemixForm } from "@remix-run/react";
-import { Button } from "@/components/ui/button"
 import {
     Form,
     FormControl,
@@ -16,6 +15,9 @@ import {
 } from "@/components/ui/form"
 import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
+import { ColorField } from "./fields/color-field";
+import { Textarea } from "../ui/textarea";
+import React from "react";
 
 const DEFAULT_VALUES: Task = {
     title: "",
@@ -39,14 +41,12 @@ export const TaskForm: React.FC<TaskFormProps> = ({ defaultValues, onSubmit, btn
     })
 
     function handleSubmit(values: Task) {
-        console.log("Form submitted with values:", values)
-        // Perform any additional actions with the form values here
-
+        onSubmit?.(values)
     }
 
     return (
         <Form {...form}>
-            <RemixForm onSubmit={form.handleSubmit(handleSubmit)}>
+            <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
                 <FormField
                     control={form.control}
                     name="title"
@@ -60,19 +60,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ defaultValues, onSubmit, btn
                         </FormItem>
                     )}
                 />
-                <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Description</FormLabel>
-                            <FormControl>
-                                <Input {...field} placeholder="Description" />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+
                 <FormField
                     control={form.control}
                     name="color"
@@ -80,7 +68,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ defaultValues, onSubmit, btn
                         <FormItem>
                             <FormLabel>Color</FormLabel>
                             <FormControl>
-                                <Input {...field} placeholder="Color" />
+                                <ColorField value={field.value} onChange={field.onChange} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -110,6 +98,19 @@ export const TaskForm: React.FC<TaskFormProps> = ({ defaultValues, onSubmit, btn
                 />
                 <FormField
                     control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Description</FormLabel>
+                            <FormControl>
+                                <Textarea {...field} placeholder="Description" />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
                     name="dueDate"
                     render={({ field }) => (
                         <FormItem>
@@ -125,7 +126,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({ defaultValues, onSubmit, btn
                     )}
                 />
                 {btnSubmit ? btnSubmit(!form.formState.isValid) : null}
-            </RemixForm>
+            </form>
         </Form>
     )
 }

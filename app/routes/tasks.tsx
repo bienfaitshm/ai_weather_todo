@@ -11,7 +11,9 @@ export const action = async ({
     const formData = await request.formData();
     const values = Object.fromEntries(formData) as unknown as TaskDataType;
     console.log("Form submitted with values:", values);
+
     // Perform any additional actions with the form values here
+    return null
 };
 
 export default function Tasks() {

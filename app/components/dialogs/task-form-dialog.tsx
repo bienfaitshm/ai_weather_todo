@@ -1,3 +1,4 @@
+import React from "react"
 import {
     Dialog,
     DialogContent,
@@ -12,11 +13,18 @@ import {
 import { Button } from "@/components/ui/button"
 import { PlusCircleIcon } from "lucide-react"
 import { TaskForm } from "../forms/task-form"
+import { useFetcher } from "@remix-run/react"
 
 export interface TaskFormDialogProps {
-    isUpdate?: boolean
+    isUpdate?: boolean,
 }
 export const TaskFormDialog: React.FC<TaskFormDialogProps> = ({ }) => {
+    const fetcher = useFetcher()
+    const btnSubmitRef = React.useRef<HTMLButtonElement>(null)
+
+    const handleSubmit = () => {
+        btnSubmitRef.current?.click()
+    }
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -29,10 +37,19 @@ export const TaskFormDialog: React.FC<TaskFormDialogProps> = ({ }) => {
                         This is a simple task form dialog.
                     </DialogDescription>
                 </DialogHeader>
-                <TaskForm />
+                <TaskForm
+                    onSubmit={(value) => {
+                        console.log({ value })
+                        fetcher.submit(value, {
+                            method: "POST",
+                            action: "/tasks"
+                        })
+                    }}
+                    btnSubmit={() => <Button className="hidden" ref={btnSubmitRef} type="submit">Submit</Button>}
+                />
                 <DialogFooter>
                     <Button variant="outline">Cancel</Button>
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit" onClick={handleSubmit}>{fetcher.state} Submit</Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
