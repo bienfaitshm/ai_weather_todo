@@ -8,12 +8,11 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-
-
 import { Button } from "@/components/ui/button"
 import { PlusCircleIcon } from "lucide-react"
 import { TaskForm } from "../forms/task-form"
 import { useFetcher } from "@remix-run/react"
+import { ButtonLoader } from "../button-loader"
 
 export interface TaskFormDialogProps {
     isUpdate?: boolean,
@@ -49,7 +48,14 @@ export const TaskFormDialog: React.FC<TaskFormDialogProps> = ({ }) => {
                 />
                 <DialogFooter>
                     <Button variant="outline">Cancel</Button>
-                    <Button type="submit" onClick={handleSubmit}>{fetcher.state} Submit</Button>
+                    <ButtonLoader
+                        type="submit"
+                        isLoading={fetcher.state === "loading"}
+                        onClick={handleSubmit}
+                        loadingText="Enregistrement..."
+                    >
+                        Enregistrer
+                    </ButtonLoader>
                 </DialogFooter>
             </DialogContent>
         </Dialog>
