@@ -35,7 +35,7 @@ export const useGetTask = (id: string) => {
  */
 export const useCreateTask = () => {
     return useMutation({
-        mutationFn: async (task: taskApi.Task) => taskApi.createTask(task), // Function to create a task
+        mutationFn: async (task: Omit<taskApi.Task,"id">) => taskApi.createTask(task), // Function to create a task
         onSuccess: () => {
             // Invalidate and refetch the tasks query to reflect the new task
             queryClient.invalidateQueries({ queryKey: ["tasks"] });

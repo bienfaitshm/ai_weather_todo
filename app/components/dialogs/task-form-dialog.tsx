@@ -11,16 +11,19 @@ import {
 import { Button } from "@/components/ui/button"
 import { PlusCircleIcon } from "lucide-react"
 import { TaskForm } from "../forms/task-form"
-import { useFetcher } from "@remix-run/react"
 import { ButtonLoader } from "../button-loader"
+import type { Task } from "@/lib/schemas"
+import { useCreateTask } from "@/hooks/queries"
 
 export interface TaskFormDialogProps {
     isUpdate?: boolean,
 }
 export const TaskFormDialog: React.FC<TaskFormDialogProps> = ({ }) => {
-    const fetcher = useFetcher()
     const btnSubmitRef = React.useRef<HTMLButtonElement>(null)
-
+    const mutation = useCreateTask()
+    const onSubmit = React.useCallback((task: Task) => {
+        mutation.mutate(task)
+    }, [])
     const handleSubmit = () => {
         btnSubmitRef.current?.click()
     }
@@ -37,20 +40,14 @@ export const TaskFormDialog: React.FC<TaskFormDialogProps> = ({ }) => {
                     </DialogDescription>
                 </DialogHeader>
                 <TaskForm
-                    onSubmit={(value) => {
-                        console.log({ value })
-                        fetcher.submit(value, {
-                            method: "POST",
-                            action: "/tasks"
-                        })
-                    }}
+                    onSubmit={onSubmit}
                     btnSubmit={() => <Button className="hidden" ref={btnSubmitRef} type="submit">Submit</Button>}
                 />
                 <DialogFooter>
                     <Button variant="outline">Cancel</Button>
                     <ButtonLoader
                         type="submit"
-                        isLoading={fetcher.state === "loading"}
+                        isLoading={mutation.isPending}
                         onClick={handleSubmit}
                         loadingText="Enregistrement..."
                     >
