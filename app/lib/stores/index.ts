@@ -9,7 +9,7 @@ export type Task = {
     description?: string;
     completed: boolean;
     color?: string;
-    dueDate?: string;
+    dueDate: string;
 };
 
 /**
