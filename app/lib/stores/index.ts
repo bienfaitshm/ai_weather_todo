@@ -45,7 +45,7 @@ export function addTasks(tasks: Task | Task[]): void {
  * @param id - The ID of the task to retrieve.
  * @returns {Task | undefined} The task with the specified ID, or undefined if not found.
  */
-export function getTaskById(id: string): Task | undefined {
+export function getTask(id: string): Task | undefined {
     const tasks = getTasks();
     return tasks.find((task) => task.id === id);
 }
