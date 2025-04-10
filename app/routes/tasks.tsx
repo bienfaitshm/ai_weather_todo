@@ -3,7 +3,7 @@ import { TaskFormDialog } from "@/components/dialogs/task-form-dialog";
 import { useGetTasks } from "@/hooks/queries";
 import { cn } from "@/lib/utils";
 import { CheckSquareIcon, EllipsisVertical, PencilIcon, TrashIcon } from "lucide-react";
-import { TypographyH3, TypographyP, TypographySmall } from "@/components/ui/typography";
+import { TypographyH1, TypographyH3, TypographyP, TypographySmall } from "@/components/ui/typography";
 import { Badge } from "@/components/ui/badge"
 import {
     DropdownMenu,
@@ -103,9 +103,8 @@ const TaskList = () => {
 export default function Tasks() {
 
     return (
-        <div className="container max-w-screen-lg mx-auto p-4">
-            <h1>Tasks</h1>
-            <p>List of tasks</p>
+        <div className="container max-w-screen-lg mx-auto p-4 space-y-4">
+            <TypographyH1>Task</TypographyH1>
             <TaskFormDialog />
             <TaskList />
         </div>

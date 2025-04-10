@@ -14,7 +14,8 @@ export const TaskSchema = z.object({
     color: z.string().optional(),
 
     // An optional string representing the due date of the task
-    dueDate: z.string().optional(),
-});
+    dueDate: z.string(),
+
+})
 
 export type Task = z.infer<typeof TaskSchema>;

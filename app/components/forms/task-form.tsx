@@ -3,7 +3,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { TaskSchema, Task } from "@/lib/schemas"
-import { Form as RemixForm } from "@remix-run/react";
 import {
     Form,
     FormControl,
@@ -23,7 +22,8 @@ const DEFAULT_VALUES: Task = {
     title: "",
     description: "",
     color: "",
-    completed: false
+    completed: false,
+    dueDate: "",
 }
 
 interface TaskFormProps {
@@ -116,7 +116,12 @@ export const TaskForm: React.FC<TaskFormProps> = ({ defaultValues, onSubmit, btn
                         <FormItem>
                             <FormLabel>Due Date</FormLabel>
                             <FormControl>
-                                <Input type="date" {...field} placeholder="Due Date" />
+                                <Input
+                                    type="date"
+                                    {...field}
+                                    value={field.value}
+                                    placeholder="Due Date"
+                                />
                             </FormControl>
                             <FormMessage />
                             <FormDescription>
