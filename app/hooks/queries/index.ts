@@ -57,3 +57,33 @@ export const useUpdateTask = () => {
         },
     });
 };
+
+
+/**
+ * Custom hook to delete a task by its ID.
+ * 
+ * @returns Mutation object for deleting a task, including mutation state and methods.
+ */
+export const useDeleteTask = () => {
+    return useMutation({
+        mutationFn: async (id: string) => taskApi.deleteTask(id), // Function to delete a task
+        onSuccess: () => {
+            // Invalidate and refetch the tasks query to reflect the deletion
+            queryClient.invalidateQueries({ queryKey: ["tasks"] });
+        },
+    });
+}
+
+/**
+ * Toogle task completed state
+ * @param id - The ID of the task to toggle.
+ */
+export const useToggleTaskCompleted = () => {
+    return useMutation({
+        mutationFn: async (id: string) => taskApi.toggleTaskCompleted(id), // Function to toggle task completed state
+        onSuccess: () => {
+            // Invalidate and refetch the tasks query to reflect the updated state
+            queryClient.invalidateQueries({ queryKey: ["tasks"] });
+        },
+    });
+};
