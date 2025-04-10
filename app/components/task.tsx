@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/dropdown-menu"
 import type { Task as TaskType } from "@/lib/stores";
 import { useDialogUpdateTaskForm, TaskUpdateFormDialog } from "./dialogs/task-form-dialog";
+import { useDeleteDialog, DialogDeleteAction } from "./dialogs/delete-action-dialog";
+import { useDeleteTask, useToggleTaskCompleted } from "@/hooks/queries";
 
 
 
@@ -43,11 +45,85 @@ export const Task: React.FC = () => {
 interface TaskNoteProps {
     task: TaskType
 }
+/**
+ * `TaskNote` is a React functional component that renders a task card with various actions
+ * such as editing, marking as done, and deleting. It provides a user interface for managing
+ * individual tasks with support for dialogs and dropdown menus.
+ *
+ * @component
+ * @param {TaskNoteProps} props - The props for the `TaskNote` component.
+ * @param {Task} props.task - The task object containing details such as title, description,
+ * color, due date, and completion status.
+ *
+ * @returns {JSX.Element} A JSX element representing the task card.
+ *
+ * @example
+ * ```tsx
+ * <TaskNote task={task} />
+ * ```
+ *
+ * @remarks
+ * - The component uses several custom hooks for managing dialogs and mutations:
+ *   - `useDialogUpdateTaskForm`: Hook for managing the task update form dialog.
+ *   - `useDeleteDialog`: Hook for managing the delete confirmation dialog.
+ *   - `useDeleteTask`: Mutation hook for deleting a task.
+ *   - `useToggleTaskCompleted`: Mutation hook for toggling the task's completion status.
+ * - The component includes the following actions:
+ *   - **Edit**: Opens a dialog to edit the task.
+ *   - **Mark as Done**: Marks the task as completed.
+ *   - **Delete**: Opens a confirmation dialog to delete the task.
+ *
+ * @dependencies
+ * - `TaskUpdateFormDialog`: A dialog component for updating task details.
+ * - `DialogDeleteAction`: A dialog component for confirming task deletion.
+ * - `DropdownMenu`: A dropdown menu for task actions.
+ * - `TypographySmall`, `TypographyH3`, `TypographyP`: Typography components for styling text.
+ * - `Badge`: A badge component to indicate task status.
+ * - `Button`: A button component for triggering actions.
+ * - Icons: `EllipsisVertical`, `PencilIcon`, `CheckSquareIcon`, `TrashIcon`.
+ *
+ * @styles
+ * - The component uses Tailwind CSS classes for styling.
+ * - The `data-color` attribute and inline `backgroundColor` style are used to set the task's color.
+ */
 export const TaskNote: React.FC<TaskNoteProps> = ({ task }) => {
-    const taskUpdateFormDialog = useDialogUpdateTaskForm()
+    const taskUpdateFormDialog = useDialogUpdateTaskForm();
+    const deleteDialog = useDeleteDialog();
+    const mutationDelete = useDeleteTask();
+    const mutationToogleTaskCompleted = useToggleTaskCompleted(); // Assuming you have a mutation for marking as done
+
+    const handleDelete = React.useCallback(() => {
+        deleteDialog.current?.openDialog()
+    }, [deleteDialog])
+
+    const handleConfirmDelete = React.useCallback(() => {
+        mutationDelete.mutate(task.id, {
+            onSuccess: () => {
+                deleteDialog.current?.closeDialog()
+            }
+        })
+    }, [mutationDelete, task.id, deleteDialog])
+
+    const handleMarkAsDone = React.useCallback(() => {
+        mutationToogleTaskCompleted.mutate(task.id, {
+            onSuccess: () => {
+                // Optionally close the dialog or perform other actions
+            }
+        })
+    }, [mutationToogleTaskCompleted, task.id])
+
+    const handleEdit = React.useCallback(() => {
+        taskUpdateFormDialog.current?.openDialog()
+    }, [task, taskUpdateFormDialog])
+
     return (
         <>
             <TaskUpdateFormDialog ref={taskUpdateFormDialog} initialValues={task} />
+            <DialogDeleteAction
+                ref={deleteDialog}
+                isPending={mutationDelete.isPending}
+                onConfirm={handleConfirmDelete}
+            />
             <div
                 key={task.id}
                 data-color={task.color}
@@ -95,18 +171,16 @@ export const TaskNote: React.FC<TaskNoteProps> = ({ task }) => {
                         <DropdownMenuContent>
                             <DropdownMenuLabel>Actions</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem onSelect={() => {
-                                taskUpdateFormDialog.current?.openDialog()
-                            }}>
+                            <DropdownMenuItem onSelect={handleEdit}>
                                 <PencilIcon className="w-4 h-4" />
                                 <span>Edit</span>
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem onSelect={handleMarkAsDone}>
                                 <CheckSquareIcon className="w-4 h-4" />
                                 <span>Mark as Done</span>
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>
+                            <DropdownMenuItem onSelect={handleDelete}>
                                 <TrashIcon className="w-4 h-4" />
                                 <span>Delete</span>
                             </DropdownMenuItem>
