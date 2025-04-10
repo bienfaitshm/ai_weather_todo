@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { TaskFormDialog } from "@/components/dialogs/task-form-dialog";
 import { useGetTasks } from "@/hooks/queries";
 import { cn } from "@/lib/utils";
-import { CheckSquareIcon, PencilIcon, StarIcon, TrashIcon } from "lucide-react";
+import { CheckSquareIcon, EllipsisVertical, PencilIcon, TrashIcon } from "lucide-react";
 import { TypographyH3, TypographyP, TypographySmall } from "@/components/ui/typography";
 import { Badge } from "@/components/ui/badge"
 import {
@@ -31,9 +31,11 @@ const TaskList = () => {
                     <div
                         key={task.id}
                         data-color={task.color}
+                        style={{
+                            backgroundColor: task.color,
+                        }}
                         className={cn(
                             "relative flex flex-col justify-between border p-6 py-8 rounded-lg shadow-sm space-y-4",
-                            `bg-[${task.color}]`
                         )}
                     >
                         <div className="border-b pb-4">
@@ -69,7 +71,7 @@ const TaskList = () => {
                                         variant="outline"
                                         size="icon"
                                     >
-                                        <PencilIcon className="w-4 h-4" />
+                                        <EllipsisVertical className="w-4 h-4" />
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent>
