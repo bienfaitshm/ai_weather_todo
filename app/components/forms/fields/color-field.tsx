@@ -1,13 +1,13 @@
 
 
 const COLORS: string[] = [
-    '#FF5733', // Vibrant Orange
-    '#33FF57', // Bright Green
-    '#FF33A1', // Hot Pink
-    '#FFD700', // Gold
-    '#00CED1', // Dark Turquoise
-    '#FF4500', // Orange Red
-    '#2E8B57', // Sea Green
+    "#a1e8af",
+    "#f8d7da",
+    "#FFD452",
+    "#715AFF",
+    "#FF7F50",
+    "#5887FF",
+    "#FF75C8"
 ]
 
 interface ColorFieldProps {

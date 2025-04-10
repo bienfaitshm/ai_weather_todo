@@ -86,26 +86,11 @@ export const TaskForm: React.FC<TaskFormProps> = ({ defaultValues, onSubmit, btn
                                 />
                             </FormControl>
                             <div className="space-y-1 leading-none">
-                                <FormLabel>
-                                    Use different settings for my mobile devices
-                                </FormLabel>
+                                <FormLabel>Mark as Completed</FormLabel>
                                 <FormDescription>
-                                    You can manage your mobile notifications in the{" "}
+                                    Toggle this to mark the task as completed.
                                 </FormDescription>
                             </div>
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="description"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Description</FormLabel>
-                            <FormControl>
-                                <Textarea {...field} placeholder="Description" />
-                            </FormControl>
-                            <FormMessage />
                         </FormItem>
                     )}
                 />
@@ -124,12 +109,27 @@ export const TaskForm: React.FC<TaskFormProps> = ({ defaultValues, onSubmit, btn
                                 />
                             </FormControl>
                             <FormMessage />
+
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="description"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Description</FormLabel>
+                            <FormControl>
+                                <Textarea {...field} placeholder="Description" />
+                            </FormControl>
+                            <FormMessage />
                             <FormDescription>
-                                This is a description of the form field. It can be used to provide additional information to the user.
+                                Provide a detailed description of the task to help clarify its purpose or requirements.
                             </FormDescription>
                         </FormItem>
                     )}
                 />
+
                 {btnSubmit ? btnSubmit(!form.formState.isValid) : null}
             </form>
         </Form>
