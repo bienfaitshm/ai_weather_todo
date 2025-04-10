@@ -27,6 +27,7 @@
     "@remix-run/node": "^2.16.4",
     "@remix-run/react": "^2.16.4",
     "@remix-run/serve": "^2.16.4",
+    "@tanstack/react-query": "^5.72.2",
     "argh": "^1.0.0",
     "axios": "^1.8.4",
     "class-variance-authority": "^0.7.1",
@@ -44,6 +45,7 @@
     "react-hook-form": "^7.55.0",
     "remix-themes": "^2.0.4",
     "remix-utils": "^8.5.0",
+    "storejs": "^2.1.0",
     "tailwind-merge": "^3.1.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.2"
