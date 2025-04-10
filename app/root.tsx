@@ -9,11 +9,12 @@ import {
 } from "@remix-run/react";
 import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 
-import "./tailwind.css";
+import "@/tailwind.css";
 import clsx from "clsx"
 import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from "remix-themes"
 
-import { themeSessionResolver } from "./sessions.server"
+import { themeSessionResolver } from "@/sessions.server"
+import QueryClientProvider from "@/components/providers/tanstack-provider";
 
 // Return the theme from the session storage using the loader
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -62,7 +63,9 @@ export function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <QueryClientProvider>
+          <Outlet />
+        </QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
         {/* <LiveReload /> */}
