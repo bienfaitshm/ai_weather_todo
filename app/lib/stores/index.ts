@@ -84,3 +84,31 @@ export function updateTask(id: string, updatedTask: Partial<Task>): void {
     tasks[taskIndex] = updatedTaskData;
     store.set(KEY_TASKS, tasks);
 }
+
+
+/**
+ * Deletes a task from the store by its unique ID.
+ * @param id - The ID of the task to delete.
+ */
+export function deleteTask(id: string): void {
+    const tasks = getTasks();
+    const updatedTasks = tasks.filter((task) => task.id !== id);
+    store.set(KEY_TASKS, updatedTasks);
+}
+
+/**
+ * Marks a task as toogle completed by its unique ID.
+ * @param id - The ID of the task to mark as completed.
+ */
+export function toggleTaskCompleted(id: string): void {
+    const tasks = getTasks();
+    const taskIndex = tasks.findIndex((task) => task.id === id);
+
+    if (taskIndex === -1) {
+        throw new Error(`Task with ID "${id}" not found.`);
+    }
+
+    const updatedTaskData = { ...tasks[taskIndex], completed: !tasks[taskIndex].completed };
+    tasks[taskIndex] = updatedTaskData;
+    store.set(KEY_TASKS, tasks);
+}
