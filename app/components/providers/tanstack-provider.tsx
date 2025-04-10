@@ -25,7 +25,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
  * 
  * @see https://tanstack.com/query/v4/docs/react/reference/QueryClient for more details on `QueryClient` configuration.
  */
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
             refetchOnWindowFocus: false,

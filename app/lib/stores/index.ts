@@ -3,7 +3,7 @@ import store from "storejs";
 
 const KEY_TASKS = "tasks";
 
-type Task = {
+export type Task = {
     id: string;
     title: string;
     description?: string;
