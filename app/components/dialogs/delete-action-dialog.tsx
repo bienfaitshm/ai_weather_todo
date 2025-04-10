@@ -20,14 +20,12 @@ export interface DialogDeleteActionRef {
 interface DialogDeleteActionProps {
     onConfirm?(): void;
     isPending?: boolean;
-    ref: React.Ref<DialogDeleteActionRef>;
 }
 
-export const DialogDeleteAction: React.FC<DialogDeleteActionProps> = ({
-    ref,
-    isPending,
-    onConfirm,
-}) => {
+export const DialogDeleteAction = React.forwardRef<
+    DialogDeleteActionRef,
+    DialogDeleteActionProps
+>(({ isPending, onConfirm }, ref) => {
     const [open, setOpen] = React.useState<boolean>(false);
 
     const closeDialog = React.useCallback(() => setOpen(false), []);
@@ -78,7 +76,7 @@ export const DialogDeleteAction: React.FC<DialogDeleteActionProps> = ({
             </DialogContent>
         </Dialog>
     );
-};
+})
 
 export function useDeleteDialog() {
     return useRef<DialogDeleteActionRef>(null);

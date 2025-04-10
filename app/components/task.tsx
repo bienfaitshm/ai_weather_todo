@@ -3,7 +3,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/t
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { CheckSquareIcon, EllipsisVertical, PencilIcon, TrashIcon } from "lucide-react";
-import { TypographyH1, TypographyH3, TypographyP, TypographySmall, TypographyLarge } from "@/components/ui/typography";
+import { TypographyH3, TypographyP, TypographySmall, TypographyLarge } from "@/components/ui/typography";
 import { Badge } from "@/components/ui/badge"
 import {
     DropdownMenu,
