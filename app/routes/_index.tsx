@@ -1,6 +1,6 @@
 import { HomeDateTimer } from "@/components/home-time";
 import { Button } from "@/components/ui/button";
-import { CloudMoon, HomeIcon, ListTodoIcon } from "lucide-react"
+import { CloudMoon, PanelLeftIcon, ListTodoIcon } from "lucide-react"
 
 
 import { json, type LoaderFunctionArgs, type MetaFunction } from "@remix-run/node";
@@ -9,6 +9,7 @@ import { getClientIPAddress } from "remix-utils/get-client-ip-address";
 import { getLocation } from "@/lib/location";
 import { useLoaderData } from "@remix-run/react";
 import { ModeToggle } from "@/components/mode-toggle";
+import { SideMenus } from "@/components/side-menus";
 
 export const meta: MetaFunction = () => {
   return [
@@ -36,10 +37,12 @@ export default function Index() {
 
           <HomeDateTimer />
           <div className="flex justify-center gap-6">
-            <Button className="flex items-center gap-2 rounded-full">
-              <HomeIcon />
-              <span>Home</span>
-            </Button>
+            <SideMenus btnOpen={
+              <Button className="flex items-center gap-2 rounded-full">
+                <PanelLeftIcon />
+                <span>Menu</span>
+              </Button>
+            } />
             <Button className="flex items-center gap-2 rounded-full">
               <ListTodoIcon />
               <span>Tasks</span>
