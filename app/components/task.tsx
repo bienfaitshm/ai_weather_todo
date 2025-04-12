@@ -131,7 +131,7 @@ export const TaskNote: React.FC<TaskNoteProps> = ({ task }) => {
                     backgroundColor: task.color,
                 }}
                 className={cn(
-                    "relative flex flex-col justify-between border p-6 py-8 rounded-lg shadow-sm space-y-4",
+                    "relative flex flex-col justify-between border p-4 py-2 lg:p-6 lg:py-8 rounded-lg shadow-sm space-y-4",
                 )}
             >
                 <div className="border-b pb-4">

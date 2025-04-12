@@ -15,7 +15,7 @@ const TaskList = () => {
                     <p>No tasks found.</p>
                 </div>
             )}
-            <div className="grid grid-cols-3 gap-4 mt-4">
+            <div className="grid lg:grid-cols-3 gap-4 mt-4">
                 {tasks?.map((task) => (
                     <TaskNote key={task.id} task={task} />
                 ))}
