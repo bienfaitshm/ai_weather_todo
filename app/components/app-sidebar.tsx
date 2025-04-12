@@ -62,11 +62,11 @@ export function AppSidebar() {
                 <SidebarGroup>
                     <SidebarGroupLabel>Application</SidebarGroupLabel>
                     <SidebarGroupContent>
-                        <SidebarMenu>
+                        <SidebarMenu className="space-y-2">
                             {menus.map((item) => (
                                 <SidebarMenuItem key={item.name}>
                                     <SidebarMenuButton asChild>
-                                        <Link to={item.href}>
+                                        <Link to={item.href} className="text-lg">
                                             <item.icon />
                                             <span>{item.name}</span>
                                         </Link>
