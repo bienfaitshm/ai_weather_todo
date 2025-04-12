@@ -18,7 +18,7 @@ export interface WeatherCardProps {
 }
 export const WeatherCard: React.FC<WeatherCardProps> = ({ title, description, humidity, rainChance, temperature, weatherCondition, icon }) => {
     return (
-        <Card className="px-5">
+        <Card className="px-5 bg-transparent backdrop-blur-md dark:text-white dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-700 rounded-lg shadow-md w-full max-w-sm">
             <CardHeader>
                 <CardTitle>{title}</CardTitle>
                 <CardDescription>{description}</CardDescription>
@@ -34,7 +34,6 @@ export const WeatherCard: React.FC<WeatherCardProps> = ({ title, description, hu
                     {icon}
                 </div>
             </CardContent>
-
         </Card>
     )
 }
