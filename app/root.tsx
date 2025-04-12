@@ -1,7 +1,6 @@
 import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -51,20 +50,6 @@ export default function AppWithProviders() {
   );
 }
 
-// Layout component for consistent structure
-export function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <QueryClientProvider>
-      <SidebarProvider>
-        <AppSidebar />
-        <main className="flex flex-col min-h-screen">
-          <SidebarTrigger />
-          {children}
-        </main>
-      </SidebarProvider>
-    </QueryClientProvider>
-  );
-}
 
 // Main App component
 export function App() {
@@ -80,13 +65,18 @@ export function App() {
         <PreventFlashOnWrongTheme ssrTheme={Boolean(theme)} />
         <Links />
       </head>
-      <body className="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-50">
-        <Layout>
-          <Outlet />
-        </Layout>
+      <body>
+        <QueryClientProvider>
+          <SidebarProvider>
+            <AppSidebar />
+            <main className="flex flex-col min-h-screen">
+              <SidebarTrigger />
+              <Outlet />
+            </main>
+          </SidebarProvider>
+        </QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   );
