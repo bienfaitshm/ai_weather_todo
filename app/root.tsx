@@ -1,29 +1,33 @@
+import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import {
   Links,
-  // LiveReload,
+  LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
-import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
+
+import clsx from "clsx";
 
 import "@/tailwind.css";
-import clsx from "clsx"
-import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from "remix-themes"
 
-import { themeSessionResolver } from "@/sessions.server"
+import { themeSessionResolver } from "@/sessions.server";
+
+import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from "remix-themes";
+
 import QueryClientProvider from "@/components/providers/tanstack-provider";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
-// Return the theme from the session storage using the loader
+// Loader to fetch the theme from session storage
 export async function loader({ request }: LoaderFunctionArgs) {
-  const { getTheme } = await themeSessionResolver(request)
-  return {
-    theme: getTheme(),
-  }
+  const { getTheme } = await themeSessionResolver(request);
+  return { theme: getTheme() };
 }
 
+// Links for preloading fonts and styles
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -37,39 +41,53 @@ export const links: LinksFunction = () => [
   },
 ];
 
-
-// Wrap your app with ThemeProvider.
-// `specifiedTheme` is the stored theme in the session storage.
-// `themeAction` is the action name that's used to change the theme in the session storage.
+// App wrapped with ThemeProvider for theme management
 export default function AppWithProviders() {
-  const data = useLoaderData<typeof loader>()
+  const { theme } = useLoaderData<typeof loader>();
   return (
-    <ThemeProvider specifiedTheme={data.theme} themeAction="/action/set-theme">
+    <ThemeProvider specifiedTheme={theme} themeAction="/action/set-theme">
       <App />
     </ThemeProvider>
-  )
+  );
 }
 
-export function App() {
-  const data = useLoaderData<typeof loader>()
-  const [theme] = useTheme()
+// Layout component for consistent structure
+export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={clsx(theme)}>
+    <QueryClientProvider>
+      <SidebarProvider>
+        <AppSidebar />
+        <main className="flex flex-col min-h-screen">
+          <SidebarTrigger />
+          {children}
+        </main>
+      </SidebarProvider>
+    </QueryClientProvider>
+  );
+}
+
+// Main App component
+export function App() {
+  const { theme } = useLoaderData<typeof loader>();
+  const [currentTheme] = useTheme();
+
+  return (
+    <html lang="fr" className={clsx(currentTheme)}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
-        <PreventFlashOnWrongTheme ssrTheme={Boolean(data.theme)} />
+        <PreventFlashOnWrongTheme ssrTheme={Boolean(theme)} />
         <Links />
       </head>
-      <body>
-        <QueryClientProvider>
+      <body className="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-50">
+        <Layout>
           <Outlet />
-        </QueryClientProvider>
+        </Layout>
         <ScrollRestoration />
         <Scripts />
-        {/* <LiveReload /> */}
+        <LiveReload />
       </body>
     </html>
-  )
+  );
 }
