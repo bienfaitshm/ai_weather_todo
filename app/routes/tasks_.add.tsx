@@ -14,12 +14,13 @@ export default function Page() {
     const onSubmit = React.useCallback((task: Task) => {
         mutation.mutate(task, {
             onSuccess: () => {
+                navigate(-1)
             }
         })
     }, [])
 
     const handleCancel = React.useCallback(() => {
-        navigate("/tasks")
+        navigate(-1)
     }, [])
     return (
         <div className="container max-w-screen-sm mx-auto p-4 space-y-10">
