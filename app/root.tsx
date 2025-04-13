@@ -1,7 +1,6 @@
 import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -20,6 +19,8 @@ import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from "remix-themes"
 import QueryClientProvider from "@/components/providers/tanstack-provider";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { ModeToggle } from "./components/mode-toggle";
+import ButtonNewTask from "./components/button-newtask";
 
 // Loader to fetch the theme from session storage
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -51,20 +52,6 @@ export default function AppWithProviders() {
   );
 }
 
-// Layout component for consistent structure
-export function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <QueryClientProvider>
-      <SidebarProvider>
-        <AppSidebar />
-        <main className="flex flex-col min-h-screen">
-          <SidebarTrigger />
-          {children}
-        </main>
-      </SidebarProvider>
-    </QueryClientProvider>
-  );
-}
 
 // Main App component
 export function App() {
@@ -80,13 +67,24 @@ export function App() {
         <PreventFlashOnWrongTheme ssrTheme={Boolean(theme)} />
         <Links />
       </head>
-      <body className="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-50">
-        <Layout>
-          <Outlet />
-        </Layout>
+      <body>
+        <QueryClientProvider>
+          <SidebarProvider>
+            <AppSidebar />
+            <main className="w-full flex flex-col min-h-screen ">
+              <div className="flex items-center justify-between w-full p-4 bg-background sticky top-0 z-50 border-b border-border">
+                <SidebarTrigger />
+                <div className="flex items-center gap-4">
+                  <ButtonNewTask />
+                  <ModeToggle />
+                </div>
+              </div>
+              <Outlet />
+            </main>
+          </SidebarProvider>
+        </QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   );

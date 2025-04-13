@@ -17,6 +17,7 @@ import type { Task as TaskType } from "@/lib/stores";
 import { useDialogUpdateTaskForm, TaskUpdateFormDialog } from "./dialogs/task-form-dialog";
 import { useDeleteDialog, DialogDeleteAction } from "./dialogs/delete-action-dialog";
 import { useDeleteTask, useToggleTaskCompleted } from "@/hooks/queries";
+import { useNavigate } from "@remix-run/react";
 
 
 
@@ -87,6 +88,7 @@ interface TaskNoteProps {
  * - The `data-color` attribute and inline `backgroundColor` style are used to set the task's color.
  */
 export const TaskNote: React.FC<TaskNoteProps> = ({ task }) => {
+    const navigate = useNavigate()
     const taskUpdateFormDialog = useDialogUpdateTaskForm();
     const deleteDialog = useDeleteDialog();
     const mutationDelete = useDeleteTask();
@@ -113,8 +115,8 @@ export const TaskNote: React.FC<TaskNoteProps> = ({ task }) => {
     }, [mutationToogleTaskCompleted, task.id])
 
     const handleEdit = React.useCallback(() => {
-        taskUpdateFormDialog.current?.openDialog()
-    }, [task, taskUpdateFormDialog])
+        navigate(`/tasks/${task.id}/edit`)
+    }, [task])
 
     return (
         <>
@@ -131,7 +133,7 @@ export const TaskNote: React.FC<TaskNoteProps> = ({ task }) => {
                     backgroundColor: task.color,
                 }}
                 className={cn(
-                    "relative flex flex-col justify-between border p-6 py-8 rounded-lg shadow-sm space-y-4",
+                    "relative flex flex-col justify-between border p-4 py-2 lg:p-6 lg:py-8 rounded-lg shadow-sm space-y-4",
                 )}
             >
                 <div className="border-b pb-4">

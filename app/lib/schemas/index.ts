@@ -14,7 +14,7 @@ export const TaskSchema = z.object({
     color: z.string().optional(),
 
     // An optional string representing the due date of the task
-    dueDate: z.string(),
+    dueDate: z.date(),
 
 })
 

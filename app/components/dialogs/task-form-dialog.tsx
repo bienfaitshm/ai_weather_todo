@@ -20,8 +20,8 @@ export interface TaskFormDialogProps {
     isUpdate?: boolean,
 }
 export const TaskFormDialog: React.FC<TaskFormDialogProps> = ({ }) => {
-    const btnSubmitRef = React.useRef<HTMLButtonElement>(null)
     const [open, setOpen] = React.useState<boolean>(false)
+    const btnSubmitRef = React.useRef<HTMLButtonElement>(null)
     const mutation = useCreateTask()
     const onSubmit = React.useCallback((task: Task) => {
         mutation.mutate(task, {
