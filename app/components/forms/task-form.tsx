@@ -17,6 +17,7 @@ import { Checkbox } from "../ui/checkbox";
 import { ColorField } from "./fields/color-field";
 import { Textarea } from "../ui/textarea";
 import React from "react";
+// import { SwatchBookIcon } from "lucide-react"
 
 const DEFAULT_VALUES: Task = {
     title: "",
@@ -47,6 +48,17 @@ export const TaskForm: React.FC<TaskFormProps> = ({ defaultValues, onSubmit, btn
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+                {/* <FormField
+                    control={form.control}
+                    name="color"
+                    render={({ field }) => (
+                        <FormItem className="flex items-center justify-end">
+                            <FormControl>
+                                {field.value && <SwatchBookIcon className="size-20" color={field.value} />}
+                            </FormControl>
+                        </FormItem>
+                    )}
+                /> */}
                 <FormField
                     control={form.control}
                     name="title"
