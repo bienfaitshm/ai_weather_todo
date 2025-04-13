@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { addDays, format } from "date-fns"
+import { addDays, format, setHours, setMinutes } from "date-fns"
 import { CalendarIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
@@ -19,12 +19,45 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 type DatePickerWithPresetsProps = {
     value?: Date
     onChange?: (date: Date) => void
 }
 export const DatePickerWithPresets: React.FC<DatePickerWithPresetsProps> = ({ value: date, onChange }) => {
+    const [timeValue, setTimeValue] = React.useState<string>("00:00");
+
+    const handleTimeChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        const time = e.target.value;
+        if (!date) {
+            setTimeValue(time);
+            return;
+        }
+        const [hours, minutes] = time.split(":").map((str) => parseInt(str, 10));
+        const newSelectedDate = setHours(setMinutes(date, minutes), hours);
+        onChange?.(newSelectedDate);
+        setTimeValue(time);
+    };
+
+    const handleDaySelect = (date: Date | undefined) => {
+        if (!timeValue || !date) {
+            onChange?.(date || new Date());
+            return;
+        }
+        const [hours, minutes] = timeValue
+            .split(":")
+            .map((str) => parseInt(str, 10));
+        const newDate = new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate(),
+            hours,
+            minutes
+        );
+        onChange?.(newDate);
+    };
 
     return (
         <Popover>
@@ -32,40 +65,44 @@ export const DatePickerWithPresets: React.FC<DatePickerWithPresetsProps> = ({ va
                 <Button
                     variant={"outline"}
                     className={cn(
-                        "w-[240px] justify-start text-left font-normal",
+                        "w-full justify-start text-left font-normal",
                         !date && "text-muted-foreground"
                     )}
                 >
                     <CalendarIcon />
-                    {date ? format(date, "PPP") : <span>Pick a date</span>}
+                    {date ? format(date, "dd/MM/yyyy 'a' HH'h'mm") : <span>Pick a date</span>}
                 </Button>
             </PopoverTrigger>
             <PopoverContent
                 align="start"
                 className="flex w-auto flex-col space-y-2 p-2"
             >
-                <Select
-                    onValueChange={(value) =>
-                        onChange?.(addDays(new Date(), parseInt(value)))
-                    }
-                >
-                    <SelectTrigger>
-                        <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent position="popper">
-                        <SelectItem value="0">Today</SelectItem>
-                        <SelectItem value="1">Tomorrow</SelectItem>
-                        <SelectItem value="3">In 3 days</SelectItem>
-                        <SelectItem value="7">In a week</SelectItem>
-                    </SelectContent>
-                </Select>
-                <div className="rounded-md border">
-                    <Calendar mode="single" selected={date} onSelect={(value) => {
-                        if (value) {
-                            onChange?.(value)
+                <div className="grid grid-cols-2 gap-2">
+                    <Select
+                        onValueChange={(value) =>
+                            onChange?.(addDays(new Date(), parseInt(value)))
                         }
-                    }} />
+                    >
+                        <SelectTrigger>
+                            <SelectValue placeholder="Select" />
+                        </SelectTrigger>
+                        <SelectContent position="popper">
+                            <SelectItem value="0">Today</SelectItem>
+                            <SelectItem value="1">Tomorrow</SelectItem>
+                            <SelectItem value="3">In 3 days</SelectItem>
+                            <SelectItem value="7">In a week</SelectItem>
+                        </SelectContent>
+                    </Select>
+                    <div>
+                        {/* <Label className="mb-2" htmlFor="time">Time</Label> */}
+                        <Input type="time" value={timeValue} onChange={handleTimeChange} />
+                    </div>
                 </div>
+
+                <div className="rounded-md border">
+                    <Calendar mode="single" selected={date} onSelect={handleDaySelect} />
+                </div>
+
             </PopoverContent>
         </Popover>
     )
