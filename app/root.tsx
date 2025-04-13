@@ -20,8 +20,7 @@ import QueryClientProvider from "@/components/providers/tanstack-provider";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ModeToggle } from "./components/mode-toggle";
-import { Button } from "./components/ui/button";
-import { ListTodoIcon } from "lucide-react";
+import ButtonNewTask from "./components/button-newtask";
 
 // Loader to fetch the theme from session storage
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -76,10 +75,7 @@ export function App() {
               <div className="flex items-center justify-between w-full p-4 bg-background sticky top-0 z-50 border-b border-border">
                 <SidebarTrigger />
                 <div className="flex items-center gap-4">
-                  <Button className="flex items-center gap-2 rounded-full">
-                    <ListTodoIcon />
-                    <span>Ajouter une tâche</span>
-                  </Button>
+                  <ButtonNewTask />
                   <ModeToggle />
                 </div>
               </div>
