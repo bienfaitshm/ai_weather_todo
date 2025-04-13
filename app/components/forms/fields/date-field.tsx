@@ -27,38 +27,27 @@ type DatePickerWithPresetsProps = {
     onChange?: (date: Date) => void
 }
 export const DatePickerWithPresets: React.FC<DatePickerWithPresetsProps> = ({ value: date, onChange }) => {
-    const [timeValue, setTimeValue] = React.useState<string>("00:00");
+    const timeValue = date ? format(date, "HH:mm") : "00:00";
 
     const handleTimeChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         const time = e.target.value;
-        if (!date) {
-            setTimeValue(time);
-            return;
+
+        if (date) {
+            const [hours, minutes] = time.split(":").map(Number);
+            onChange?.(setHours(setMinutes(date, minutes), hours));
         }
-        const [hours, minutes] = time.split(":").map((str) => parseInt(str, 10));
-        const newSelectedDate = setHours(setMinutes(date, minutes), hours);
-        onChange?.(newSelectedDate);
-        setTimeValue(time);
     };
 
-    const handleDaySelect = (date: Date | undefined) => {
-        if (!timeValue || !date) {
-            onChange?.(date || new Date());
+    const handleDaySelect = (selectedDate: Date | undefined) => {
+        if (!selectedDate) {
+            onChange?.(new Date());
             return;
         }
-        const [hours, minutes] = timeValue
-            .split(":")
-            .map((str) => parseInt(str, 10));
-        const newDate = new Date(
-            date.getFullYear(),
-            date.getMonth(),
-            date.getDate(),
-            hours,
-            minutes
-        );
+
+        const [hours, minutes] = timeValue.split(":").map(Number);
+        const newDate = setHours(setMinutes(selectedDate, minutes), hours);
         onChange?.(newDate);
     };
-
     return (
         <Popover>
             <PopoverTrigger asChild>
