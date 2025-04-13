@@ -15,6 +15,7 @@ import {
 import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
 import { ColorField } from "./fields/color-field";
+import { DatePickerWithPresets } from "./fields/date-field"
 import { Textarea } from "../ui/textarea";
 import React from "react";
 // import { SwatchBookIcon } from "lucide-react"
@@ -24,7 +25,7 @@ const DEFAULT_VALUES: Task = {
     description: "",
     color: "",
     completed: false,
-    dueDate: "",
+    dueDate: new Date(),
 }
 
 interface TaskFormProps {
@@ -113,12 +114,13 @@ export const TaskForm: React.FC<TaskFormProps> = ({ defaultValues, onSubmit, btn
                         <FormItem>
                             <FormLabel>Due Date</FormLabel>
                             <FormControl>
-                                <Input
+                                {/* <Input
                                     type="date"
                                     {...field}
                                     value={field.value}
                                     placeholder="Due Date"
-                                />
+                                /> */}
+                                <DatePickerWithPresets value={field.value} onChange={field.onChange} />
                             </FormControl>
                             <FormMessage />
 
