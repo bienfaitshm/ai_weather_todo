@@ -1,4 +1,3 @@
-import { TaskFormDialog } from "@/components/dialogs/task-form-dialog";
 import { useGetTasks } from "@/hooks/queries";
 import { TypographyH1 } from "@/components/ui/typography";
 import { TaskNote } from "@/components/task";
@@ -27,9 +26,8 @@ const TaskList = () => {
 export default function Tasks() {
 
     return (
-        <div className="container max-w-screen-lg mx-auto p-4 space-y-4">
+        <div className="container max-w-screen-lg mx-auto p-4 space-y-5">
             <TypographyH1>Tasks</TypographyH1>
-            <TaskFormDialog />
             <TaskList />
         </div>
     )
