@@ -35,7 +35,11 @@ const menus: Menu[] = [
     {
         icon: MapPinHouseIcon,
         name: "Informations",
+<<<<<<< HEAD
         href: "/info",
+=======
+        href: "/infos",
+>>>>>>> developpement
     },
     {
         icon: InfoIcon,
@@ -76,8 +80,13 @@ export const SideMenus: React.FC<SideMenusProps> = ({ btnOpen }) => {
 
                     </div>
                 </div>
+<<<<<<< HEAD
                 <SheetFooter className=" sm:flex-col sm:justify-center sm:space-x-2">
                     <div className="flex gap-2 text-sm">
+=======
+                <SheetFooter className="sm:flex-col sm:justify-center sm:space-x-2">
+                    <div className="flex items-center justify-center gap-2 text-sm">
+>>>>>>> developpement
                         <div className="w-3 h-3 rounded-full bg-green-600 animate-pulse"></div>
                         <TypographyP><b>Lubumbashi</b> <span className="text-xs">selon votre position actuelle</span></TypographyP>
                     </div>
