@@ -1,20 +1,20 @@
 import { useRealTime } from "@/hooks/timer"
 import { format } from "date-fns"
-import { TypographyH3 } from "./ui/typography"
+import { TypographyH1, TypographyH3 } from "./ui/typography"
+import { formatDateTime, FORMAT_DATE } from "@/lib/date-time"
 
 export const HomeDateTimer = () => {
     const date = useRealTime()
 
     return (
         <div className="flex flex-col items-center justify-center text-center">
-            <h1 className="text-4xl font-bold">{date.toLocaleDateString()}</h1>
-            <div className="grid grid-cols-3 gap-4 mt-4">
-                <TypographyH3 className="text-4xl">{format(date, "HH")}</TypographyH3>
-                <TypographyH3 className="text-4xl">{format(date, ": mm")}</TypographyH3>
-                <div className="flex items-end">
-                    <TypographyH3>{format(date, "ss")}</TypographyH3>
+            <div className="grid grid-cols-5 gap-4 mt-4 px-5">
+                <TypographyH1 className="lg:text-8xl col-span-4">{formatDateTime(date, FORMAT_DATE.HOME_TIME)}</TypographyH1>
+                <div className="flex items-end mb-2 max-w-10 ">
+                    <TypographyH3>{format(date, FORMAT_DATE.SECOND)}</TypographyH3>
                 </div>
             </div>
+            <div className="text-2xl mt-4">{formatDateTime(date, FORMAT_DATE.HOME_DATE)}</div>
         </div>
     )
 }
