@@ -8,6 +8,7 @@ type Weather = {
     condition: string;
     icon: string;
     cloud: number;
+    humidity:number
 };
 
 /**
@@ -49,6 +50,7 @@ export async function fetchWeatherForecast(city: string): Promise<WeatherForecas
             condition: current.condition.text,
             icon: current.condition.icon,
             cloud: current.cloud,
+            humidity: current.humidity
         },
         forecast: forecast.forecastday.map(({ day, date }) => ({
             dailyChanceOfRain: day.daily_chance_of_rain,
