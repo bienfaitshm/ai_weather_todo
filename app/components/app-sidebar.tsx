@@ -10,12 +10,22 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { Link } from "@remix-run/react"
+import { Link, useLoaderData } from "@remix-run/react"
 
 import { menus } from "@/constants/menus"
 import { TypographyH3, TypographyP } from "./ui/typography"
+// import { getPosition } from "@/.server/geo"
+import { LoaderFunctionArgs } from "@remix-run/node"
+
+// export async function loader({
+//     request,
+// }: LoaderFunctionArgs) {
+//     return await getPosition(request)
+// }
+
 
 export const AppSidebar = () => {
+    const data = useLoaderData();
     return (
         <Sidebar>
             <SidebarContent className="flex flex-col">
@@ -23,6 +33,7 @@ export const AppSidebar = () => {
                     <TypographyH3 className="text-lg font-bold">Menu</TypographyH3>
                     <TypographyP className="text-xs text-muted-foreground">
                         Ceci est une application simple pour gérer vos tâches et vérifier la météo.
+                        {JSON.stringify(data)}
                     </TypographyP>
                 </SidebarHeader>
                 <SidebarGroup className="flex-1 mt-5">

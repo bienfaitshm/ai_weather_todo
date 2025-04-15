@@ -21,12 +21,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ModeToggle } from "./components/mode-toggle";
 import ButtonNewTask from "./components/button-newtask";
-
-// Loader to fetch the theme from session storage
-export async function loader({ request }: LoaderFunctionArgs) {
-  const { getTheme } = await themeSessionResolver(request);
-  return { theme: getTheme() };
-}
+import { getPosition } from "./.server/geo";
 
 // Links for preloading fonts and styles
 export const links: LinksFunction = () => [
@@ -42,15 +37,16 @@ export const links: LinksFunction = () => [
   },
 ];
 
-// App wrapped with ThemeProvider for theme management
-export default function AppWithProviders() {
-  const { theme } = useLoaderData<typeof loader>();
-  return (
-    <ThemeProvider specifiedTheme={theme} themeAction="/action/set-theme">
-      <App />
-    </ThemeProvider>
-  );
+// Loader to fetch the theme from session storage
+export async function loader({ request }: LoaderFunctionArgs) {
+  const geo = await getPosition(request)
+  const { getTheme } = await themeSessionResolver(request);
+  return { theme: getTheme(), geo };
 }
+
+
+
+
 
 
 // Main App component
@@ -87,5 +83,15 @@ export function App() {
         <Scripts />
       </body>
     </html>
+  );
+}
+
+// App wrapped with ThemeProvider for theme management
+export default function AppWithProviders() {
+  const { theme } = useLoaderData<typeof loader>();
+  return (
+    <ThemeProvider specifiedTheme={theme} themeAction="/action/set-theme">
+      <App />
+    </ThemeProvider>
   );
 }
