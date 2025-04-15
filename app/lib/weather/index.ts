@@ -16,7 +16,8 @@ export async function getWeatherForecast(region: Region, days:number = 7) {
             q: region.city,
             days,
             aqi: "no",
-            alerts: "no"
+            alerts: "no",
+            lang:"fr"
         }
     }).then(res=>res.data);
 }

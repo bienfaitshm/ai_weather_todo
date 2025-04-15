@@ -11,6 +11,7 @@ import {
     formatDateTime,
     FORMAT_DATE,
 } from "@/lib/date-time";
+import { formatCoordinatesToQuery } from "@/lib/formater";
 
 import { LoaderFunctionArgs } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
@@ -38,7 +39,12 @@ interface WeatherData {
 }
 
 interface GeoData {
+    ip: string;
     city: string;
+    latitude: number;
+    longitude: number;
+    region: string;
+    timezone: string;
     country: string;
 }
 
@@ -108,7 +114,7 @@ const WeatherMainCardPrevesion: React.FC<CurrentWeather> = ({
  */
 export async function loader({ request }: LoaderFunctionArgs) {
     const geo: GeoData = await getPosition(request);
-    const weathers: WeatherData = await fetchWeatherForecast(geo.city);
+    const weathers: WeatherData = await fetchWeatherForecast(formatCoordinatesToQuery(geo.latitude, geo.longitude));
 
     return { geo, weathers };
 }
