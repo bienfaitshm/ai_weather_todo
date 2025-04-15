@@ -35,17 +35,16 @@ const WeatherMainCardPrevesion: React.FC<{
     cloud: number;
 }> = ({ condition, iconUrl, temperature, cloud }) => {
     return (
-        <div className="flex flex-row items-center justify-between md:flex-col md:items-start">
+        <div className="flex flex-row items-center justify-between md:flex-col md:items-start text-neutral-800 dark:text-neutral-200">
             <div className="space-y-1">
                 <TypographyH4>Aujourd'hui</TypographyH4>
-                <TypographyH1>{temperature}°</TypographyH1>
+                <TypographyH1 className="tracking-widest">{temperature}°</TypographyH1>
                 <div className="flex flex-col">
                     <TypographySmall className="text-sm">{condition}</TypographySmall>
                     <TypographySmall className="text-sm">Couverture nuageuse {cloud}%</TypographySmall>
                 </div>
             </div>
             <img className="size-28" src={iconUrl} alt={condition} />
-            {/* <CloudMoon className="size-28" /> */}
         </div>
     )
 }
