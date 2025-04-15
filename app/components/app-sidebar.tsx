@@ -10,12 +10,15 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { Link } from "@remix-run/react"
+import { TypographyH3, TypographyP } from "@/components/ui/typography"
+import { Link, useLoaderData } from "@remix-run/react"
 
 import { menus } from "@/constants/menus"
-import { TypographyH3, TypographyP } from "./ui/typography"
+import type { loader } from "@/root"
+
 
 export const AppSidebar = () => {
+    const { geo: { city } } = useLoaderData<typeof loader>();
     return (
         <Sidebar>
             <SidebarContent className="flex flex-col">
@@ -46,13 +49,12 @@ export const AppSidebar = () => {
                     <div className="flex items-center gap-2 mt-4 sm:text-xs text-sm text-muted-foreground flex-wrap">
                         <div className="size-2 rounded-full bg-green-600 animate-pulse flex-shrink-0"></div>
                         <TypographyP className="flex-1">
-                            <b>Lubumbashi</b> <span className="text-xs">(position actuelle)</span>
+                            <b>{city}</b> <span className="text-xs">(position actuelle)</span>
                         </TypographyP>
                     </div>
                     <div className="flex flex-col items-center justify-center sm:text-xs text-sm text-muted-foreground">
                         <TypographyP>© {new Date().getFullYear()} - Tous droits réservés</TypographyP>
                         <TypographyP>Ai Weather Todo</TypographyP>
-                        {/* <TypographyP>Version {process.env.APP_VERSION || "1.0.0"}</TypographyP> */}
                     </div>
                 </SidebarFooter>
             </SidebarContent>
