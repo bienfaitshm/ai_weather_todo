@@ -4,7 +4,7 @@ import { fr } from 'date-fns/locale'
 export const FORMAT_DATE = {
     HOME_TIME:"HH : mm",
     HOME_DATE:"EEEE | MMMM dd",
-    DETAIL_DATE:"dd MMMM",
+    DETAIL_DATE:"dd EE",
     SECOND:"ss",
     DATE:"yyyy-MM-dd"
 } as const

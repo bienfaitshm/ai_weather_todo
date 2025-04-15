@@ -1,6 +1,7 @@
 import { getPosition } from "@/.server/geo"
 import { fetchWeatherForcast } from "@/.server/weather"
 import { TypographyH1, TypographyH3, TypographyH4, TypographySmall } from "@/components/ui/typography"
+import { parseDate, formatDateTime, FORMAT_DATE } from "@/lib/date-time"
 
 import { LoaderFunctionArgs } from "@remix-run/node"
 import { useLoaderData } from "@remix-run/react"
@@ -13,9 +14,10 @@ const WeatherCardPrevesion: React.FC<{
     max_temperature: number,
     date: string
 }> = ({ condition, daily_chance_of_rain, min_temperature, max_temperature, date, icon: iconUrl }) => {
+    const parsedDate = formatDateTime(parseDate(date), FORMAT_DATE.DETAIL_DATE)
     return (
         <div className="flex flex-col items-center gap-5  rounded-md border p-2 shadow-sm md:shadow-none md:border-none">
-            <TypographyH4 className="text-md">{date}</TypographyH4>
+            <TypographyH4 className="text-md capitalize">{parsedDate}</TypographyH4>
             <img className="size-14" src={iconUrl} alt={condition} />
             <div className="flex flex-col items-center gap-2">
                 <TypographyH3 className="text-md">{min_temperature}° / {max_temperature}°</TypographyH3>
