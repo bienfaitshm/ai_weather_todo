@@ -10,10 +10,10 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { TypographyH3, TypographyP } from "@/components/ui/typography"
 import { Link, useLoaderData } from "@remix-run/react"
 
 import { menus } from "@/constants/menus"
-import { TypographyH3, TypographyP } from "./ui/typography"
 import type { loader } from "@/root"
 
 
