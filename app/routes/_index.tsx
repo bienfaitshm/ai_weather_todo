@@ -4,6 +4,8 @@ import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { WeatherCard } from "@/components/weather-card";
 import { useLoaderData } from "@remix-run/react";
 import { getPosition } from "@/.server/geo";
+import { fetchWeatherForecast } from "@/.server/weather"
+import { formatCoordinatesToQuery } from "@/lib/formater";
 
 
 export const meta: MetaFunction = () => {
@@ -14,16 +16,49 @@ export const meta: MetaFunction = () => {
 };
 
 
+interface WeatherForecast {
+  dailyChanceOfRain: number;
+  condition: string;
+  icon: string;
+  minTemperature: number;
+  maxTemperature: number;
+  date: string;
+}
+
+interface CurrentWeather {
+  temperature: number | string;
+  condition: string;
+  icon: string;
+  cloud: number;
+  humidity: number
+}
+
+interface WeatherData {
+  current: CurrentWeather;
+  forecast: WeatherForecast[];
+}
+
+interface GeoData {
+  ip: string;
+  city: string;
+  latitude: number;
+  longitude: number;
+  region: string;
+  timezone: string;
+  country: string;
+}
+
 export async function loader({
   request,
 }: LoaderFunctionArgs) {
-  return {
-    geo: await getPosition(request)
-  }
+  const geo: GeoData = await getPosition(request);
+  const weather: WeatherData = await fetchWeatherForecast(formatCoordinatesToQuery(geo.latitude, geo.longitude));
+  return { geo, weather };
+
 }
 
 export default function Index() {
-  const { geo } = useLoaderData<typeof loader>();
+  const { geo, weather } = useLoaderData<typeof loader>();
   return (
     <div className="relative">
       <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-30 blur-3xl animate-pulse" />
@@ -32,11 +67,12 @@ export default function Index() {
           <HomeDateTimer />
           <WeatherCard
             title={`${geo?.city} - ${geo?.country}` || "Unknown Region"}
-            temperature={35}
-            weatherCondition="Mostly Clear"
-            rainChance="25% Chance of Rain"
-            humidity="70% Humidity"
-            icon={<CloudMoon className="size-28" />}
+            description="Aujourd'hui"
+            temperature={weather.current.temperature}
+            weatherCondition={weather.current.condition}
+            rainChance={`${weather.current.cloud}% de couverture nuageuse`}
+            humidity={`${weather.current.humidity}% humidite`}
+            icon={<img className="size-28" src={weather.current.icon} alt={weather.current.condition} />}
           />
         </div>
       </div>

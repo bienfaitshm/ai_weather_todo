@@ -1,16 +1,9 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
+import { TypographyH1, TypographyH3, TypographyH4, TypographyP, TypographySmall } from "./ui/typography";
 
 export interface WeatherCardProps {
     title: string;
     description?: string;
-    temperature: number;
+    temperature: number | string;
     weatherCondition: string;
     rainChance: string;
     humidity: string;
@@ -18,22 +11,20 @@ export interface WeatherCardProps {
 }
 export const WeatherCard: React.FC<WeatherCardProps> = ({ title, description, humidity, rainChance, temperature, weatherCondition, icon }) => {
     return (
-        <Card className="px-5 bg-transparent backdrop-blur-md dark:text-white dark:bg-neutral-900/50 border border-neutral-200 dark:border-neutral-700 rounded-lg shadow-md w-full max-w-sm">
-            <CardHeader>
-                <CardTitle>{title}</CardTitle>
-                <CardDescription>{description}</CardDescription>
-            </CardHeader>
-            <CardContent>
-                <div className="flex items-end gap-10">
-                    <div>
-                        <h1 className="text-4xl font-bold">{temperature}°</h1>
-                        <p className="text-xs">{weatherCondition}</p>
-                        <p className="text-xs">Chance of Rain {rainChance}</p>
-                        <p className="text-xs">Humidity {humidity}</p>
-                    </div>
-                    {icon}
+        <div className="px-5 rounded-lg w-full max-w-sm">
+            <div>
+                <TypographyH4>{title}</TypographyH4>
+                <TypographySmall>{description}</TypographySmall>
+            </div>
+            <div className="flex items-end gap-10">
+                <div className="space-y-1">
+                    <TypographyH1 className="text-4xl font-bold tracking-widest my-4">{temperature}°</TypographyH1>
+                    <TypographyP className="text-xs truncate">{weatherCondition}</TypographyP>
+                    <TypographyP className="text-xs truncate">{rainChance}</TypographyP>
+                    <TypographyP className="text-xs truncate">{humidity}</TypographyP>
                 </div>
-            </CardContent>
-        </Card>
+                {icon}
+            </div>
+        </div>
     )
 }
