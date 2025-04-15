@@ -1,5 +1,5 @@
 import { getPosition } from "@/.server/geo";
-import { fetchWeatherForcast } from "@/.server/weather";
+import { fetchWeatherForecast } from "@/.server/weather";
 import {
     TypographyH1,
     TypographyH3,
@@ -17,11 +17,11 @@ import { useLoaderData } from "@remix-run/react";
 
 // Types for Weather Data
 interface WeatherForecast {
-    daily_chance_of_rain: number;
+    dailyChanceOfRain: number;
     condition: string;
     icon: string;
-    min_temperature: number;
-    max_temperature: number;
+    minTemperature: number;
+    maxTemperature: number;
     date: string;
 }
 
@@ -48,9 +48,9 @@ interface GeoData {
  */
 const WeatherCardPrevesion: React.FC<WeatherForecast> = ({
     condition,
-    daily_chance_of_rain,
-    min_temperature,
-    max_temperature,
+    dailyChanceOfRain,
+    minTemperature,
+    maxTemperature,
     date,
     icon: iconUrl,
 }) => {
@@ -62,12 +62,12 @@ const WeatherCardPrevesion: React.FC<WeatherForecast> = ({
             <img className="size-14" src={iconUrl} alt={condition} />
             <div className="flex flex-col items-center gap-2">
                 <TypographyH3 className="text-md">
-                    {min_temperature}° / {max_temperature}°
+                    {minTemperature}° / {maxTemperature}°
                 </TypographyH3>
                 <div className="flex flex-col items-center">
                     <TypographySmall className="text-xs">{condition}</TypographySmall>
                     <TypographySmall className="text-xs">
-                        Pluie {daily_chance_of_rain}%
+                        Pluie {dailyChanceOfRain}%
                     </TypographySmall>
                 </div>
             </div>
@@ -108,7 +108,7 @@ const WeatherMainCardPrevesion: React.FC<CurrentWeather> = ({
  */
 export async function loader({ request }: LoaderFunctionArgs) {
     const geo: GeoData = await getPosition(request);
-    const weathers: WeatherData = await fetchWeatherForcast(geo.city);
+    const weathers: WeatherData = await fetchWeatherForecast(geo.city);
 
     return { geo, weathers };
 }
