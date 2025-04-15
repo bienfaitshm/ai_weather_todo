@@ -1,4 +1,4 @@
-type WeatherLocation = {
+export type WeatherLocation = {
   name: string;
   region: string;
   country: string;
@@ -9,13 +9,13 @@ type WeatherLocation = {
   localtime: string;
 }
 
-type Condition = {
+export type Condition = {
   text: string;
   icon: string;
   code: number;
 }
 
-type CurrentWeather = {
+export type CurrentWeather = {
   last_updated_epoch: number;
   last_updated: string;
   temp_c: number;
@@ -47,7 +47,7 @@ type CurrentWeather = {
   gust_kph: number;
 }
 
-type Astro = {
+export type Astro = {
   sunrise: string;
   sunset: string;
   moonrise: string;
@@ -58,7 +58,7 @@ type Astro = {
   is_sun_up: number;
 }
 
-type DayForecast = {
+export type DayForecast = {
   maxtemp_c: number;
   maxtemp_f: number;
   mintemp_c: number;
@@ -81,7 +81,7 @@ type DayForecast = {
   uv: number;
 }
 
-type HourForecast = {
+export type HourForecast = {
   time_epoch: number;
   time: string;
   temp_c: number;
@@ -118,7 +118,7 @@ type HourForecast = {
   uv: number;
 }
 
-type ForecastDay = {
+export type ForecastDay = {
   date: string;
   date_epoch: number;
   day: DayForecast;
@@ -126,14 +126,10 @@ type ForecastDay = {
   hour: HourForecast[];
 }
 
-type WeatherForecast = {
+export type WeatherForecast = {
   location: WeatherLocation;
   current: CurrentWeather;
   forecast: {
     forecastday: ForecastDay[];
   };
-}
-
-type WeatherResponse = {
-  weather: WeatherForecast;
 }
