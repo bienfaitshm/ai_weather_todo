@@ -61,11 +61,11 @@ const WeatherCardPrevesion: React.FC<WeatherForecast> = ({
     icon: iconUrl,
 }) => {
     const parsedDate = formatDateTime(parseDate(date), FORMAT_DATE.DETAIL_DATE);
-
     return (
         <div className="flex flex-col items-center gap-5 rounded-md border p-2 shadow-sm md:shadow-none md:border-none">
             <TypographyH4 className="text-md capitalize">{parsedDate}</TypographyH4>
             <img className="size-14" src={iconUrl} alt={condition} />
+
             <div className="flex flex-col items-center gap-2">
                 <TypographyH3 className="text-md">
                     {minTemperature}° / {maxTemperature}°
@@ -108,6 +108,7 @@ const WeatherMainCardPrevesion: React.FC<CurrentWeather> = ({
     );
 };
 
+
 // Loader Function
 /**
  * Fetches the user's geolocation and weather forecast data.
@@ -123,6 +124,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 /**
  * Displays the weather forecast page.
  */
+
 export default function PrevisionPage() {
     const { geo, weathers } = useLoaderData<typeof loader>();
 
