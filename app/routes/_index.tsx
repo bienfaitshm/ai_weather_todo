@@ -1,5 +1,4 @@
 import { HomeDateTimer } from "@/components/home-time";
-import { CloudMoon } from "lucide-react"
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
 import { WeatherCard } from "@/components/weather-card";
 import { useLoaderData } from "@remix-run/react";
