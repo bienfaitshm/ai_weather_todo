@@ -71,7 +71,7 @@ const WeatherCardPrevesion: React.FC<WeatherForecast> = ({
                     {minTemperature}° / {maxTemperature}°
                 </TypographyH3>
                 <div className="flex flex-col items-center">
-                    <TypographySmall className="text-xs">{condition}</TypographySmall>
+                    <TypographySmall className="text-xs truncate">{condition}</TypographySmall>
                     <TypographySmall className="text-xs">
                         Pluie {dailyChanceOfRain}%
                     </TypographySmall>
