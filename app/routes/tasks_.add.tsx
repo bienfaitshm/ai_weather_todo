@@ -1,7 +1,7 @@
 import { ButtonLoader } from "@/components/button-loader";
 import { TaskForm, useTaskForm } from "@/components/forms/task-form";
 import { Button } from "@/components/ui/button";
-import { TypographyH1 } from "@/components/ui/typography";
+import { TypographyH3 } from "@/components/ui/typography";
 import { useCreateTask } from "@/hooks/queries";
 import { Task } from "@/lib/schemas";
 import { useFetcher, useNavigate } from "@remix-run/react";
@@ -66,7 +66,7 @@ export default function Page() {
     }, [])
     return (
         <div className="container max-w-screen-sm mx-auto p-4 space-y-10">
-            <TypographyH1>Nouvelle tâche</TypographyH1>
+            <TypographyH3>Nouvelle tâche</TypographyH3>
             <div>
                 <TaskForm ref={form} onSubmit={onSubmit}
                     btnSubmit={
