@@ -9,7 +9,8 @@ import { ActionFunctionArgs } from "@remix-run/node"
  */
 export async function action({ request }: ActionFunctionArgs): Promise<string> {
     // Parse the incoming request body as JSON
-    const { title } = await request.json() as { title: string };
+    const {title} = await request.json() as { title: string };
+
 
     // Generate the task description using the AI assistant
     const description = await getAITaskDescription(title);

@@ -26,18 +26,22 @@ const ButtonGeneratorDescription: React.FC<{
 
     const handleGetDescription = React.useCallback(() => {
         const title = getterTitle();
-        if (title?.trim()) {
+        const titleTrimed = title?.trim()
+        if (titleTrimed) {
             fetcher.submit(
-                { title },
+                { title: titleTrimed },
                 {
                     action: "/action/get-description",
                     method: "post",
+                    encType: "application/json"
                 }
             );
         } else {
             toast({
+                variant: "destructive",
                 title: "Généreration de la description",
                 description: "Veuillez ajouter le titre de la tâche pour que je puisse générer une description.",
+
             })
         }
     }, [getterTitle, fetcher]);
