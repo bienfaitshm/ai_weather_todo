@@ -21,6 +21,10 @@ import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { ModeToggle } from "./components/mode-toggle";
 import ButtonNewTask from "./components/button-newtask";
+import { Toaster } from "@/components/ui/toaster"
+
+
+
 import { getPosition } from "./.server/geo";
 
 // Links for preloading fonts and styles
@@ -86,6 +90,7 @@ export function App() {
         </QueryClientProvider>
         <ScrollRestoration />
         <Scripts />
+        <Toaster />
       </body>
     </html>
   );
