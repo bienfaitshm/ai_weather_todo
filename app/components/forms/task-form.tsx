@@ -18,6 +18,8 @@ import { ColorField } from "./fields/color-field";
 import { DatePickerWithPresets } from "./fields/date-field"
 import { Textarea } from "../ui/textarea";
 import React from "react";
+import { Button } from "../ui/button"
+import { BrainIcon } from "lucide-react"
 // import { SwatchBookIcon } from "lucide-react"
 
 const DEFAULT_VALUES: Task = {
@@ -32,8 +34,19 @@ interface TaskFormProps {
     defaultValues?: Task,
     onSubmit?: (values: Task) => void,
     btnSubmit?: (isValid: boolean) => React.ReactNode,
+    btnDescription?: React.ReactNode
 }
-export const TaskForm: React.FC<TaskFormProps> = ({ defaultValues, onSubmit, btnSubmit }) => {
+
+interface TaskFormRef {
+    setDescription(text: string): void,
+    getTitle(): string
+}
+
+export function useTaskForm() {
+    return React.useRef<TaskFormRef>(null)
+}
+
+export const TaskForm = React.forwardRef<TaskFormRef, TaskFormProps>(({ defaultValues, onSubmit, btnSubmit, btnDescription }, ref) => {
     const form = useForm<Task>({
         resolver: zodResolver(TaskSchema),
         defaultValues: {
@@ -45,6 +58,15 @@ export const TaskForm: React.FC<TaskFormProps> = ({ defaultValues, onSubmit, btn
     function handleSubmit(values: Task) {
         onSubmit?.(values)
     }
+
+    React.useImperativeHandle(ref, () => ({
+        setDescription(text) {
+            form.setValue("description", text)
+        },
+        getTitle() {
+            return form.getValues("title")
+        },
+    }), [form])
 
     return (
         <Form {...form}>
@@ -132,7 +154,10 @@ export const TaskForm: React.FC<TaskFormProps> = ({ defaultValues, onSubmit, btn
                     name="description"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Description</FormLabel>
+                            <div className="flex items-center justify-between">
+                                <FormLabel>Description</FormLabel>
+                                {btnDescription}
+                            </div>
                             <FormControl>
                                 <Textarea {...field} placeholder="Description" />
                             </FormControl>
@@ -150,3 +175,4 @@ export const TaskForm: React.FC<TaskFormProps> = ({ defaultValues, onSubmit, btn
     )
 }
 
+)
