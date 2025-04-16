@@ -14,7 +14,7 @@ import "@/tailwind.css";
 
 import { themeSessionResolver } from "@/sessions.server";
 
-import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from "remix-themes";
+import { PreventFlashOnWrongTheme, Theme, ThemeProvider, useTheme } from "remix-themes";
 
 import QueryClientProvider from "@/components/providers/tanstack-provider";
 import { AppSidebar } from "@/components/app-sidebar";
@@ -41,7 +41,12 @@ export const links: LinksFunction = () => [
 export async function loader({ request }: LoaderFunctionArgs) {
   const geo = await getPosition(request)
   const { getTheme } = await themeSessionResolver(request);
-  return { theme: getTheme(), geo };
+
+  const theme = await getTheme();
+
+  // Set the default theme to "light" if no theme is found in the cookie
+  const resolvedTheme = theme === null ? Theme.LIGHT : theme;
+  return { theme: resolvedTheme, geo };
 }
 
 
