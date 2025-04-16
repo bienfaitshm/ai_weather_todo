@@ -5,6 +5,7 @@ import { useLoaderData } from "@remix-run/react";
 import { getPosition } from "@/.server/geo";
 import { fetchWeatherForecast } from "@/.server/weather"
 import { formatCoordinatesToQuery } from "@/lib/formater";
+import { getAIAdvice } from "@/.server/assistant";
 
 
 export const meta: MetaFunction = () => {
@@ -52,12 +53,13 @@ export async function loader({
 }: LoaderFunctionArgs) {
   const geo: GeoData = await getPosition(request);
   const weather: WeatherData = await fetchWeatherForecast(formatCoordinatesToQuery(geo.latitude, geo.longitude));
-  return { geo, weather };
+  const assistant = await getAIAdvice()
+  return { geo, weather, assistant };
 
 }
 
 export default function Index() {
-  const { geo, weather } = useLoaderData<typeof loader>();
+  const { geo, weather, assistant } = useLoaderData<typeof loader>();
   return (
     <div className="relative">
       <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-30 blur-3xl animate-pulse" />
@@ -74,6 +76,7 @@ export default function Index() {
             icon={<img className="size-28" src={weather.current.icon} alt={weather.current.condition} />}
           />
         </div>
+        {/* <p>{assistant.message.content}</p> */}
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 import axios from "axios"
 import type {WeatherForecast } from "./types"
 
-const baseURL = "http://api.weatherapi.com/v1/"
+const baseURL = process.env.WEATHER_API_URL ||  "http://api.weatherapi.com/v1/"
+const KEY = process.env.WEATHER_API_KEY
 const axiosClient = axios.create({baseURL });
 
 
@@ -12,7 +13,7 @@ export type Region = {
 export async function getWeatherForecast(region: Region, days:number = 7) {
     return await axiosClient.get<WeatherForecast>("forecast.json", {
         params: {
-            key: "d59471d9bb934e5197785400250504",
+            key: KEY,
             q: region.city,
             days,
             aqi: "no",
