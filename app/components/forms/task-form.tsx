@@ -18,8 +18,6 @@ import { ColorField } from "./fields/color-field";
 import { DatePickerWithPresets } from "./fields/date-field"
 import { Textarea } from "../ui/textarea";
 import React from "react";
-import { Button } from "../ui/button"
-import { BrainIcon } from "lucide-react"
 // import { SwatchBookIcon } from "lucide-react"
 
 const DEFAULT_VALUES: Task = {
