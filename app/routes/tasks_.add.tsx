@@ -5,6 +5,8 @@ import { TypographyH3 } from "@/components/ui/typography";
 import { useCreateTask } from "@/hooks/queries";
 import { Task } from "@/lib/schemas";
 import { useFetcher, useNavigate } from "@remix-run/react";
+import { useToast } from "@/hooks/use-toast"
+
 import { BrainIcon } from "lucide-react";
 import React from "react";
 
@@ -14,6 +16,7 @@ const ButtonGeneratorDescription: React.FC<{
     onSetDescription?(description: string): void
 }> = ({ getterTitle, onSetDescription }) => {
     const fetcher = useFetcher();
+    const { toast } = useToast()
 
     React.useEffect(() => {
         if (fetcher.state === "idle" && fetcher.data) {
@@ -31,6 +34,11 @@ const ButtonGeneratorDescription: React.FC<{
                     method: "post",
                 }
             );
+        } else {
+            toast({
+                title: "Généreration de la description",
+                description: "Veuillez ajouter le titre de la tâche pour que je puisse générer une description.",
+            })
         }
     }, [getterTitle, fetcher]);
 
