@@ -11,55 +11,54 @@ import { BrainIcon } from "lucide-react";
 import React from "react";
 
 
-const ButtonGeneratorDescription: React.FC<{
-    getterTitle(): string;
-    onSetDescription?(description: string): void
-}> = ({ getterTitle, onSetDescription }) => {
+const GenerateDescriptionButton: React.FC<{
+    getTitle(): string;
+    onDescriptionGenerated?(description: string): void;
+}> = ({ getTitle, onDescriptionGenerated }) => {
     const fetcher = useFetcher();
-    const { toast } = useToast()
+    const { toast } = useToast();
 
     React.useEffect(() => {
         if (fetcher.state === "idle" && fetcher.data) {
-            onSetDescription?.(fetcher.data as string);
+            onDescriptionGenerated?.(fetcher.data as string);
         }
-    }, [fetcher, onSetDescription]);
+    }, [fetcher, onDescriptionGenerated]);
 
-    const handleGetDescription = React.useCallback(() => {
-        const title = getterTitle();
-        const titleTrimed = title?.trim()
-        if (titleTrimed) {
+    const handleGenerateDescription = React.useCallback(() => {
+        const title = getTitle();
+        const trimmedTitle = title?.trim();
+        if (trimmedTitle) {
             fetcher.submit(
-                { title: titleTrimed },
+                { title: trimmedTitle },
                 {
                     action: "/action/get-description",
                     method: "post",
-                    encType: "application/json"
+                    encType: "application/json",
                 }
             );
         } else {
             toast({
                 variant: "destructive",
-                title: "Généreration de la description",
-                description: "Veuillez ajouter le titre de la tâche pour que je puisse générer une description.",
-
-            })
+                title: "Description Generation",
+                description: "Please provide a task title to generate a description.",
+            });
         }
-    }, [getterTitle, fetcher]);
+    }, [getTitle, fetcher, toast]);
 
     return (
         <ButtonLoader
             type="button"
             className="rounded-full h-8"
             variant="outline"
-            loadingText="Description..."
+            loadingText="Generating..."
             isLoading={fetcher.state === "submitting"}
-            onClick={handleGetDescription}
+            onClick={handleGenerateDescription}
         >
             <BrainIcon className="size-4 mr-1" />
-            <span>Générer une description</span>
+            <span>Generate Description</span>
         </ButtonLoader>
-    )
-}
+    );
+};
 
 export default function Page() {
     const navigate = useNavigate()
@@ -97,9 +96,9 @@ export default function Page() {
                     }
 
                     btnDescription={
-                        <ButtonGeneratorDescription
-                            getterTitle={() => form.current?.getTitle() || ""}
-                            onSetDescription={form.current?.setDescription}
+                        <GenerateDescriptionButton
+                            getTitle={() => form.current?.getTitle() || ""}
+                            onDescriptionGenerated={form.current?.setDescription}
                         />
                     }
                 />
