@@ -20,13 +20,12 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 
 type DatePickerWithPresetsProps = {
     value?: Date
     onChange?: (date: Date) => void
 }
-export const DatePickerWithPresets: React.FC<DatePickerWithPresetsProps> = ({ value: date, onChange }) => {
+export const DatePickerWithPresets: React.FC<DatePickerWithPresetsProps> = ({ value: date = new Date(), onChange }) => {
     const timeValue = date ? format(date, "HH:mm") : "00:00";
 
     const handleTimeChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
